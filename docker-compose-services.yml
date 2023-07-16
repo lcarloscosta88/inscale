@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+  localstack:
+    image: localstack/localstack:latest
+    ports:
+      - "4566:4566"
+      - "8085:8085"
+    environment:
+      - SERVICES=s3:4566
+      - HOSTNAME_EXTERNAL=localhost
+      - DEBUG=1
+      - PORT_WEB_UI=8085
+      - AWS_DEFAULT_REGION=us-west-1
+      - AWS_SECRET_ACCESS_KEY=abc
+      - AWS_ACCESS_KEY_ID=123
+    volumes:
+      - ./localstack/:/docker-entrypoint-initaws.d/

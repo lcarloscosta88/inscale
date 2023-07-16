@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+  aws:
+    endpoint: http://localhost:4566
+    region: us-west-1
+    bucketName: mybucket
+    queueUrl: http://localhost:4566/000000000000/myqueue
+
