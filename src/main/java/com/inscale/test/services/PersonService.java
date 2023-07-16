@@ -36,6 +36,12 @@ public class PersonService {
         this.sqsController = sqsController;
     }
 
+    /**
+     * @param personDTO
+     * Method that saves the person, and send it to the SQS
+     * @return Person
+     * @throws Exception
+     */
     @Transactional
     public Person createPerson(PersonDTO personDTO) throws Exception {
         try {
@@ -56,11 +62,20 @@ public class PersonService {
         }
     }
 
+    /**
+     * Method that returns a List of persons
+     * @return List<Person>
+     */
     @Transactional
-    public List<Person> getAllPeople() {
+    public List<Person> getAllPersons() {
         return personRepository.findAll();
     }
 
+    /**
+     * @param id
+     * Method that returns a person by Id
+     * @return Person
+     */
     @Transactional
     public Person getPersonById(Long id) {
         log.info("Recovering Person By Id {}", id);
@@ -68,6 +83,12 @@ public class PersonService {
         return optionalPersonEntity.orElse(null);
     }
 
+    /**
+     * @param personDTO
+     * Method that updates the person using patch, we first recover the correct entity and then overwrite it with the DTO
+     * @return Person
+     * @throws Exception
+     */
     @Transactional
     public Person updatePerson(PersonDTO personDTO) throws Exception {
         try {
@@ -87,12 +108,21 @@ public class PersonService {
         }
     }
 
+    /**
+     * @param id
+     * Recover the person and save into the bucket, then delete
+     */
     @Transactional
     public void deletePerson(Long id) {
         s3Controller.uploadToS3(getPersonById(id));
         personRepository.deleteById(id);
     }
 
+    /**
+     * @param addressDTOS
+     * Method that receives the AddressDTO, iterates over it and save.
+     * @return Set<Address>
+     */
     private Set<Address> saveOrUpdateAddresses(Set<AddressDTO> addressDTOS) {
         Set<Address> addresses = new HashSet<>();
         for (AddressDTO dto : addressDTOS) {

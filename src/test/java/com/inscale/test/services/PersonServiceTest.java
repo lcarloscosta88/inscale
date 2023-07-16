@@ -103,7 +103,7 @@ class PersonServiceTest {
 
         when(personRepository.findAll()).thenReturn(Collections.singletonList(person));
 
-        List<Person> people = personService.getAllPeople();
+        List<Person> people = personService.getAllPersons();
 
         assertNotNull(people);
         assertEquals(1, people.size());

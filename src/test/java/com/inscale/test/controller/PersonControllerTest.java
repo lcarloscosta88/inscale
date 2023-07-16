@@ -1,5 +1,4 @@
 package com.inscale.test.controller;
-import com.inscale.test.controller.PersonController;
 import com.inscale.test.dto.PersonDTO;
 import com.inscale.test.entity.Person;
 import com.inscale.test.services.PersonService;
@@ -58,7 +57,7 @@ class PersonControllerTest {
 
         List<Person> people = Collections.singletonList(person);
 
-        when(personService.getAllPeople()).thenReturn(people);
+        when(personService.getAllPersons()).thenReturn(people);
 
         // Act
         ResponseEntity<List<Person>> response = personController.getAllPeople();
@@ -67,7 +66,7 @@ class PersonControllerTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(people, response.getBody());
 
-        verify(personService, times(1)).getAllPeople();
+        verify(personService, times(1)).getAllPersons();
     }
 
     @Test
